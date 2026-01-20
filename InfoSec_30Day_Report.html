@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InfoSec & Security Requests - 30 Day Report</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --bg-primary: #050608;
+            --bg-secondary: #0a0d12;
+            --bg-card: #0f1318;
+            --accent-blue: #39bae6;
+            --accent-green: #7fd962;
+            --accent-orange: #ff9940;
+            --accent-red: #ff6b6b;
+            --accent-purple: #c792ea;
+            --accent-cyan: #56d4dd;
+            --text-primary: #e6e6e6;
+            --text-secondary: #8b949e;
+            --border-color: rgba(255,255,255,0.08);
+        }
+        
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 50px 40px;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-card) 100%);
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple), var(--accent-green));
+        }
+        
+        .header h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+        
+        .header .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+        
+        .header .date-range {
+            display: inline-block;
+            background: rgba(57, 186, 230, 0.15);
+            color: var(--accent-blue);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-top: 16px;
+        }
+        
+        /* Metric Cards */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .metric-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+        }
+        
+        .metric-value {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            line-height: 1;
+        }
+        
+        .metric-value.blue { color: var(--accent-blue); }
+        .metric-value.green { color: var(--accent-green); }
+        .metric-value.orange { color: var(--accent-orange); }
+        .metric-value.red { color: var(--accent-red); }
+        .metric-value.purple { color: var(--accent-purple); }
+        
+        .metric-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .metric-change {
+            font-size: 0.8rem;
+            margin-top: 8px;
+            padding: 4px 8px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        
+        .metric-change.up { background: rgba(127, 217, 98, 0.15); color: var(--accent-green); }
+        .metric-change.down { background: rgba(255, 107, 107, 0.15); color: var(--accent-red); }
+        .metric-change.neutral { background: rgba(139, 148, 158, 0.15); color: var(--text-secondary); }
+        
+        /* Section */
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .section-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-purple) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .section-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        /* Two Column Layout */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        
+        .three-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 24px;
+        }
+        
+        /* Card */
+        .card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 28px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-title .badge {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+        
+        .badge-sec { background: rgba(57, 186, 230, 0.15); color: var(--accent-blue); }
+        .badge-sr { background: rgba(199, 146, 234, 0.15); color: var(--accent-purple); }
+        
+        /* Comparison Charts */
+        .chart-container {
+            margin-top: 20px;
+        }
+        
+        .chart-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .chart-label {
+            width: 140px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            flex-shrink: 0;
+        }
+        
+        .chart-bar-container {
+            flex: 1;
+            height: 32px;
+            background: var(--bg-primary);
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .chart-bar {
+            height: 100%;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: white;
+            transition: width 0.8s ease-out;
+        }
+        
+        .chart-bar.current { background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan)); }
+        .chart-bar.previous { background: linear-gradient(90deg, var(--accent-purple), #9d7cd8); }
+        .chart-bar.yoy { background: linear-gradient(90deg, var(--accent-orange), #ffb366); }
+        
+        .chart-value {
+            width: 50px;
+            text-align: right;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-left: 12px;
+            flex-shrink: 0;
+        }
+        
+        /* Legend */
+        .chart-legend {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 4px;
+        }
+        
+        .legend-dot.current { background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan)); }
+        .legend-dot.previous { background: linear-gradient(135deg, var(--accent-purple), #9d7cd8); }
+        .legend-dot.yoy { background: linear-gradient(135deg, var(--accent-orange), #ffb366); }
+        
+        /* Comparison Cards */
+        .comparison-card {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .comparison-period {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        
+        .comparison-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .comparison-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        
+        .comparison-delta {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .delta-up { background: rgba(127, 217, 98, 0.15); color: var(--accent-green); }
+        .delta-down { background: rgba(255, 107, 107, 0.15); color: var(--accent-red); }
+        .delta-neutral { background: rgba(139, 148, 158, 0.15); color: var(--text-secondary); }
+        
+        /* Issue List */
+        .issue-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .issue-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            transition: background 0.2s;
+        }
+        
+        .issue-item:hover {
+            background: rgba(57, 186, 230, 0.08);
+        }
+        
+        .issue-key {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.8rem;
+            color: var(--accent-blue);
+            background: rgba(57, 186, 230, 0.1);
+            padding: 4px 10px;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+        
+        .issue-key.sr {
+            color: var(--accent-purple);
+            background: rgba(199, 146, 234, 0.1);
+        }
+        
+        .issue-summary {
+            flex: 1;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .issue-status {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        
+        .status-done { background: rgba(127, 217, 98, 0.15); color: var(--accent-green); }
+        .status-progress { background: rgba(255, 153, 64, 0.15); color: var(--accent-orange); }
+        .status-open { background: rgba(139, 148, 158, 0.15); color: var(--text-secondary); }
+        
+        .issue-assignee {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+        
+        /* Team Performance */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+        }
+        
+        .team-card {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .team-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-purple) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 0 auto 12px;
+            color: white;
+        }
+        
+        .team-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        
+        .team-stats {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        
+        .team-count {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-green);
+            margin-top: 8px;
+        }
+        
+        /* Highlights */
+        .highlight-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        
+        .highlight-item {
+            display: flex;
+            gap: 14px;
+            padding: 16px;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-blue);
+        }
+        
+        .highlight-item.security { border-left-color: var(--accent-red); }
+        .highlight-item.compliance { border-left-color: var(--accent-green); }
+        .highlight-item.ai { border-left-color: var(--accent-purple); }
+        
+        .highlight-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .highlight-content h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .highlight-content p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            gap: 8px;
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-top: 16px;
+            background: var(--bg-primary);
+        }
+        
+        .stats-bar .segment {
+            transition: width 0.5s ease;
+        }
+        
+        .stats-bar .done { background: var(--accent-green); }
+        .stats-bar .progress { background: var(--accent-orange); }
+        .stats-bar .open { background: var(--text-secondary); }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+        
+        /* Links */
+        a {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        /* YoY Trend Indicator */
+        .trend-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            margin-top: 12px;
+        }
+        
+        .trend-arrow {
+            font-size: 1.2rem;
+        }
+        
+        .trend-text {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        
+        @media (max-width: 1200px) {
+            .metrics-grid { grid-template-columns: repeat(3, 1fr); }
+            .team-grid { grid-template-columns: repeat(3, 1fr); }
+            .three-col { grid-template-columns: 1fr; }
+        }
+        
+        @media (max-width: 768px) {
+            .two-col { grid-template-columns: 1fr; }
+            .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+            .team-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        
+        @media print {
+            body { background: white; color: #1a1a1a; }
+            .card, .metric-card, .header { background: #f5f5f5; border-color: #ddd; }
+            .metric-value, .issue-key, .team-count { color: #333 !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🔐 InfoSec & Security Requests</h1>
+            <p class="subtitle">30-Day Executive Report with Historical Comparison</p>
+            <span class="date-range">📅 December 21, 2025 - January 20, 2026</span>
+        </header>
+        
+        <!-- Key Metrics -->
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-value blue">57</div>
+                <div class="metric-label">Total Issues Created</div>
+                <span class="metric-change down">↓ 11% vs prior period</span>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value green">52</div>
+                <div class="metric-label">Issues Completed</div>
+                <span class="metric-change down">↓ 10% vs prior</span>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value orange">11</div>
+                <div class="metric-label">In Progress</div>
+                <span class="metric-change up">↑ 6 more than prior</span>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value purple">7</div>
+                <div class="metric-label">Security Requests</div>
+                <span class="metric-change down">↓ 50% vs prior period</span>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value green">91%</div>
+                <div class="metric-label">Completion Rate</div>
+                <span class="metric-change neutral">≈ Same as prior</span>
+            </div>
+        </div>
+        
+        <!-- Period Comparison Section -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">📊</div>
+                <div>
+                    <h2 class="section-title">Period Comparison</h2>
+                    <p class="section-subtitle">Current vs Prior 30 Days vs Same Period Last Year</p>
+                </div>
+            </div>
+            
+            <div class="three-col">
+                <div class="card">
+                    <div class="comparison-card">
+                        <div class="comparison-period">Current Period</div>
+                        <div class="comparison-value" style="color: var(--accent-blue);">57</div>
+                        <div class="comparison-label">Total Issues</div>
+                        <div class="comparison-period" style="margin-top: 12px;">Dec 21, 2025 - Jan 20, 2026</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="comparison-card">
+                        <div class="comparison-period">Prior 30 Days</div>
+                        <div class="comparison-value" style="color: var(--accent-purple);">64</div>
+                        <div class="comparison-label">Total Issues</div>
+                        <div class="comparison-delta delta-down">↓ -7 issues (-11%)</div>
+                        <div class="comparison-period" style="margin-top: 8px;">Nov 21 - Dec 20, 2025</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="comparison-card">
+                        <div class="comparison-period">Same Period Last Year</div>
+                        <div class="comparison-value" style="color: var(--accent-orange);">62</div>
+                        <div class="comparison-label">Total Issues</div>
+                        <div class="comparison-delta delta-down">↓ -5 issues (-8%)</div>
+                        <div class="comparison-period" style="margin-top: 8px;">Dec 21, 2024 - Jan 20, 2025</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Comparison Charts -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">📈</div>
+                <div>
+                    <h2 class="section-title">Volume Comparison Charts</h2>
+                    <p class="section-subtitle">Visual breakdown by project and time period</p>
+                </div>
+            </div>
+            
+            <div class="two-col">
+                <div class="card">
+                    <div class="card-title">SEC Project Issues</div>
+                    <div class="chart-legend">
+                        <div class="legend-item"><div class="legend-dot current"></div>Current (Dec-Jan 2026)</div>
+                        <div class="legend-item"><div class="legend-dot previous"></div>Prior 30 Days</div>
+                        <div class="legend-item"><div class="legend-dot yoy"></div>Same Period 2025</div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-row">
+                            <div class="chart-label">Current Period</div>
+                            <div class="chart-bar-container">
+                                <div class="chart-bar current" style="width: 100%;">50</div>
+                            </div>
+                            <div class="chart-value" style="color: var(--accent-blue);">50</div>
+                        </div>
+                        <div class="chart-row">
+                            <div class="chart-label">Prior 30 Days</div>
+                            <div class="chart-bar-container">
+                                <div class="chart-bar previous" style="width: 100%;">50</div>
+                            </div>
+                            <div class="chart-value" style="color: var(--accent-purple);">50</div>
+                        </div>
+                        <div class="chart-row">
+                            <div class="chart-label">Dec-Jan 2025</div>
+                            <div class="chart-bar-container">
+                                <div class="chart-bar yoy" style="width: 96%;">48</div>
+                            </div>
+                            <div class="chart-value" style="color: var(--accent-orange);">48</div>
+                        </div>
+                    </div>
+                    <div class="trend-indicator">
+                        <span class="trend-arrow">→</span>
+                        <span class="trend-text">Stable volume - consistent with automation cadence</span>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">Security Requests (SR)</div>
+                    <div class="chart-legend">
+                        <div class="legend-item"><div class="legend-dot current"></div>Current (Dec-Jan 2026)</div>
+                        <div class="legend-item"><div class="legend-dot previous"></div>Prior 30 Days</div>
+                        <div class="legend-item"><div class="legend-dot yoy"></div>Same Period 2025</div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-row">
+                            <div class="chart-label">Current Period</div>
+                            <div class="chart-bar-container">
+                                <div class="chart-bar current" style="width: 50%;">7</div>
+                            </div>
+                            <div class="chart-value" style="color: var(--accent-blue);">7</div>
+                        </div>
+                        <div class="chart-row">
+                            <div class="chart-label">Prior 30 Days</div>
+                            <div class="chart-bar-container">
+                                <div class="chart-bar previous" style="width: 100%;">14</div>
+                            </div>
+                            <div class="chart-value" style="color: var(--accent-purple);">14</div>
+                        </div>
+                        <div class="chart-row">
+                            <div class="chart-label">Dec-Jan 2025</div>
+                            <div class="chart-bar-container">
+                                <div class="chart-bar yoy" style="width: 100%;">14</div>
+                            </div>
+                            <div class="chart-value" style="color: var(--accent-orange);">14</div>
+                        </div>
+                    </div>
+                    <div class="trend-indicator">
+                        <span class="trend-arrow">↓</span>
+                        <span class="trend-text">50% decrease - typical holiday season slowdown</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Completion Rate Comparison -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">✅</div>
+                <div>
+                    <h2 class="section-title">Completion Rate Trends</h2>
+                    <p class="section-subtitle">Percentage of issues closed within the period</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="chart-legend">
+                    <div class="legend-item"><div class="legend-dot current"></div>Current Period</div>
+                    <div class="legend-item"><div class="legend-dot previous"></div>Prior 30 Days</div>
+                    <div class="legend-item"><div class="legend-dot yoy"></div>Same Period 2025</div>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-row">
+                        <div class="chart-label">Current Period</div>
+                        <div class="chart-bar-container">
+                            <div class="chart-bar current" style="width: 91%;">91%</div>
+                        </div>
+                        <div class="chart-value" style="color: var(--accent-blue);">91%</div>
+                    </div>
+                    <div class="chart-row">
+                        <div class="chart-label">Prior 30 Days</div>
+                        <div class="chart-bar-container">
+                            <div class="chart-bar previous" style="width: 91%;">91%</div>
+                        </div>
+                        <div class="chart-value" style="color: var(--accent-purple);">91%</div>
+                    </div>
+                    <div class="chart-row">
+                        <div class="chart-label">Dec-Jan 2025</div>
+                        <div class="chart-bar-container">
+                            <div class="chart-bar yoy" style="width: 90%;">90%</div>
+                        </div>
+                        <div class="chart-value" style="color: var(--accent-orange);">90%</div>
+                    </div>
+                </div>
+                <div class="trend-indicator">
+                    <span class="trend-arrow">→</span>
+                    <span class="trend-text">Consistent 91% completion rate maintained across periods</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Executive Summary -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">📋</div>
+                <div>
+                    <h2 class="section-title">Executive Summary</h2>
+                    <p class="section-subtitle">Key highlights from the last 30 days</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="highlight-list">
+                    <div class="highlight-item security">
+                        <span class="highlight-icon">🛡️</span>
+                        <div class="highlight-content">
+                            <h4>RDP Exposure Investigation Completed</h4>
+                            <p>Three endpoints identified running RDP were investigated and remediated by Paul Moody within 24 hours (SEC-5255).</p>
+                        </div>
+                    </div>
+                    <div class="highlight-item ai">
+                        <span class="highlight-icon">🤖</span>
+                        <div class="highlight-content">
+                            <h4>Claude Security Analyst Skill Created</h4>
+                            <p>Paul Moody completed the AI automation for Senior Security Analyst role, enhancing operational efficiency (SEC-5103).</p>
+                        </div>
+                    </div>
+                    <div class="highlight-item compliance">
+                        <span class="highlight-icon">✅</span>
+                        <div class="highlight-content">
+                            <h4>Customer Security Assessments</h4>
+                            <p>Completed assessments for AT&T, MassMutual, UHG, and Temple Health. Bridgestone and Penn Medicine reviews in progress.</p>
+                        </div>
+                    </div>
+                    <div class="highlight-item">
+                        <span class="highlight-icon">🔍</span>
+                        <div class="highlight-content">
+                            <h4>New Team Member Onboarding</h4>
+                            <p>Fatima Aragon joined the InfoSec team - currently completing onboarding, reviewing engineering processes and Invoca Academy.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Security Requests -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">📨</div>
+                <div>
+                    <h2 class="section-title">Security Requests (SR)</h2>
+                    <p class="section-subtitle">Customer questionnaires, assessments, and compliance requests</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">
+                    Customer Security Requests
+                    <span class="badge badge-sr">7 Total</span>
+                </div>
+                <div class="issue-list">
+                    <div class="issue-item">
+                        <a href="https://invoca.atlassian.net/browse/SR-1199" class="issue-key sr">SR-1199</a>
+                        <span class="issue-summary">Boost Mobile AI TPRA Questionnaire - Needed for Pilot</span>
+                        <span class="issue-status status-progress">Waiting</span>
+                        <span class="issue-assignee">Unassigned</span>
+                    </div>
+                    <div class="issue-item">
+                        <a href="https://invoca.atlassian.net/browse/SR-1198" class="issue-key sr">SR-1198</a>
+                        <span class="issue-summary">Director of Digital Marketing & Analytics</span>
+                        <span class="issue-status status-progress">Waiting</span>
+                        <span class="issue-assignee">Unassigned</span>
+                    </div>
+                    <div class="issue-item">
+                        <a href="https://invoca.atlassian.net/browse/SR-1197" class="issue-key sr">SR-1197</a>
+                        <span class="issue-summary">Bridgestone Tires Security Questionnaire Remediations</span>
+                        <span class="issue-status status-progress">In Progress</span>
+                        <span class="issue-assignee">Ray O.</span>
+                    </div>
+                    <div class="issue-item">
+                        <a href="https://invoca.atlassian.net/browse/SR-1196" class="issue-key sr">SR-1196</a>
+                        <span class="issue-summary">Penn Medicine Security Review</span>
+                        <span class="issue-status status-progress">In Progress</span>
+                        <span class="issue-assignee">Ray O.</span>
+                    </div>
+                    <div class="issue-item">
+                        <a href="https://invoca.atlassian.net/browse/SR-1195" class="issue-key sr">SR-1195</a>
+                        <span class="issue-summary">WEX, compliance tasks</span>
+                        <span class="issue-status status-progress">In Progress</span>
+                        <span class="issue-assignee">Ray O.</span>
+                    </div>
+                    <div class="issue-item">
+                        <a href="https://invoca.atlassian.net/browse/SR-1194" class="issue-key sr">SR-1194</a>
+                        <span class="issue-summary">MassMutual: Security Documents</span>
+                        <span class="issue-status status-done">Resolved</span>
+                        <span class="issue-assignee">Ray O.</span>
+                    </div>
+                    <div class="issue-item">
+                        <a href="https://invoca.atlassian.net/browse/SR-1193" class="issue-key sr">SR-1193</a>
+                        <span class="issue-summary">AT&T CSO Questions for SaaS applications</span>
+                        <span class="issue-status status-done">Closed</span>
+                        <span class="issue-assignee">Ray O.</span>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 24px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 8px;">
+                        <span>Completion Progress</span>
+                        <span>2 of 7 completed (29%)</span>
+                    </div>
+                    <div class="stats-bar">
+                        <div class="segment done" style="width: 29%"></div>
+                        <div class="segment progress" style="width: 71%"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- InfoSec Project -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">🔒</div>
+                <div>
+                    <h2 class="section-title">InfoSec Project (SEC)</h2>
+                    <p class="section-subtitle">Internal security tasks, on-call reviews, and automation</p>
+                </div>
+            </div>
+            
+            <div class="two-col">
+                <div class="card">
+                    <div class="card-title">
+                        Key Work Items
+                        <span class="badge badge-sec">Non-Automated</span>
+                    </div>
+                    <div class="issue-list">
+                        <div class="issue-item">
+                            <a href="https://invoca.atlassian.net/browse/SEC-5256" class="issue-key">SEC-5256</a>
+                            <span class="issue-summary">Prep for internal pen test</span>
+                            <span class="issue-status status-open">Open</span>
+                        </div>
+                        <div class="issue-item">
+                            <a href="https://invoca.atlassian.net/browse/SEC-5255" class="issue-key">SEC-5255</a>
+                            <span class="issue-summary">Three endpoints appear to be running RDP</span>
+                            <span class="issue-status status-done">Closed</span>
+                        </div>
+                        <div class="issue-item">
+                            <a href="https://invoca.atlassian.net/browse/SEC-5226" class="issue-key">SEC-5226</a>
+                            <span class="issue-summary">Metomic Salesforce finding</span>
+                            <span class="issue-status status-done">Closed</span>
+                        </div>
+                        <div class="issue-item">
+                            <a href="https://invoca.atlassian.net/browse/SEC-5225" class="issue-key">SEC-5225</a>
+                            <span class="issue-summary">PCI ASV</span>
+                            <span class="issue-status status-progress">Blocked</span>
+                        </div>
+                        <div class="issue-item">
+                            <a href="https://invoca.atlassian.net/browse/SEC-5187" class="issue-key">SEC-5187</a>
+                            <span class="issue-summary">User Access Review</span>
+                            <span class="issue-status status-done">Closed</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">
+                        Daily On-Call Log Reviews
+                        <span class="badge badge-sec">Automated</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+                        <div style="background: var(--bg-secondary); padding: 16px; border-radius: 10px; text-align: center;">
+                            <div style="font-size: 2rem; font-weight: 700; color: var(--accent-green);">49</div>
+                            <div style="font-size: 0.8rem; color: var(--text-secondary);">Log Reviews Completed</div>
+                        </div>
+                        <div style="background: var(--bg-secondary); padding: 16px; border-radius: 10px; text-align: center;">
+                            <div style="font-size: 2rem; font-weight: 700; color: var(--accent-blue);">7</div>
+                            <div style="font-size: 0.8rem; color: var(--text-secondary);">Log Sources Monitored</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 16px; font-size: 0.85rem; color: var(--text-secondary);">
+                        <strong>Sources:</strong> Kibana, GCP, AWS CloudTrail, AtBay, Metomic, DockerHub, SSaaS
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Team Performance -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">👥</div>
+                <div>
+                    <h2 class="section-title">Team Performance</h2>
+                    <p class="section-subtitle">Issues completed by team member</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="team-grid">
+                    <div class="team-card">
+                        <div class="team-avatar">RO</div>
+                        <div class="team-name">Ray Osei-Agyapong</div>
+                        <div class="team-stats">Security Analyst</div>
+                        <div class="team-count">28</div>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-avatar">SP</div>
+                        <div class="team-name">Soojin Park</div>
+                        <div class="team-stats">InfoSec Engineer</div>
+                        <div class="team-count">15</div>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-avatar">PM</div>
+                        <div class="team-name">Paul Moody</div>
+                        <div class="team-stats">InfoSec Engineer</div>
+                        <div class="team-count">3</div>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-avatar">RM</div>
+                        <div class="team-name">Ryan McCracken</div>
+                        <div class="team-stats">Security Manager</div>
+                        <div class="team-count">3</div>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-avatar">AJ</div>
+                        <div class="team-name">April Jones</div>
+                        <div class="team-stats">Compliance Manager</div>
+                        <div class="team-count">1</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Customer Focus -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">🏢</div>
+                <div>
+                    <h2 class="section-title">Customer Engagement</h2>
+                    <p class="section-subtitle">Security assessments completed for key customers</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px;">
+                    <div style="background: var(--bg-secondary); padding: 16px; border-radius: 10px; text-align: center;">
+                        <div style="font-size: 0.95rem; font-weight: 500;">AT&T</div>
+                        <div style="font-size: 0.75rem; color: var(--accent-green); margin-top: 4px;">✓ CSO Questions</div>
+                    </div>
+                    <div style="background: var(--bg-secondary); padding: 16px; border-radius: 10px; text-align: center;">
+                        <div style="font-size: 0.95rem; font-weight: 500;">MassMutual</div>
+                        <div style="font-size: 0.75rem; color: var(--accent-green); margin-top: 4px;">✓ Security Docs</div>
+                    </div>
+                    <div style="background: var(--bg-secondary); padding: 16px; border-radius: 10px; text-align: center;">
+                        <div style="font-size: 0.95rem; font-weight: 500;">Bridgestone Tires</div>
+                        <div style="font-size: 0.75rem; color: var(--accent-orange); margin-top: 4px;">⏳ Remediations</div>
+                    </div>
+                    <div style="background: var(--bg-secondary); padding: 16px; border-radius: 10px; text-align: center;">
+                        <div style="font-size: 0.95rem; font-weight: 500;">Penn Medicine</div>
+                        <div style="font-size: 0.75rem; color: var(--accent-orange); margin-top: 4px;">⏳ Security Review</div>
+                    </div>
+                    <div style="background: var(--bg-secondary); padding: 16px; border-radius: 10px; text-align: center;">
+                        <div style="font-size: 0.95rem; font-weight: 500;">WEX</div>
+                        <div style="font-size: 0.75rem; color: var(--accent-orange); margin-top: 4px;">⏳ Compliance Tasks</div>
+                    </div>
+                    <div style="background: var(--bg-secondary); padding: 16px; border-radius: 10px; text-align: center;">
+                        <div style="font-size: 0.95rem; font-weight: 500;">Boost Mobile</div>
+                        <div style="font-size: 0.75rem; color: var(--accent-orange); margin-top: 4px;">⏳ AI TPRA</div>
+                    </div>
+                    <div style="background: var(--bg-secondary); padding: 16px; border-radius: 10px; text-align: center;">
+                        <div style="font-size: 0.95rem; font-weight: 500;">Temple Health</div>
+                        <div style="font-size: 0.75rem; color: var(--accent-green); margin-top: 4px;">✓ InfoSec Addendum</div>
+                    </div>
+                    <div style="background: var(--bg-secondary); padding: 16px; border-radius: 10px; text-align: center;">
+                        <div style="font-size: 0.95rem; font-weight: 500;">UHG</div>
+                        <div style="font-size: 0.75rem; color: var(--accent-green); margin-top: 4px;">✓ SIRG/ISO Review</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <footer class="footer">
+            <p>Generated: January 20, 2026 | Data Source: Jira (SEC & SR Projects)</p>
+            <p style="margin-top: 8px;">Confidential - For Internal Use Only</p>
+        </footer>
+    </div>
+</body>
+</html>
